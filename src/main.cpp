@@ -142,7 +142,7 @@ vector<double> getFrenet(double x, double y, double theta, const vector<double> 
 }
 
 // Transform from Frenet s,d coordinates to Cartesian x,y
-vector<double> getXY(double s, double d, const vector<double> &maps_s, const vector<double> &maps_x, const vector<double> &maps_y, const vector<double> &maps_dx, const vector<double> &maps_dy)
+vector<double> getXY(double s, double d, const vector<double> &maps_s, const vector<double> &maps_x, const vector<double> &maps_y)
 {
   int prev_wp = -1;
 
@@ -382,9 +382,9 @@ int main() {
         // Synthetic waypoints are 30m, 60m and 90m ahead. Adjust the waypoints to be in the center of the current lane
         // rather than on the road divider (double yellow lines).
 
-        vector<double> next_wp0 = getXY(car_s + 30, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y, map_waypoints_dx, map_waypoints_dy);
-        vector<double> next_wp1 = getXY(car_s + 60, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y, map_waypoints_dx, map_waypoints_dy);
-        vector<double> next_wp2 = getXY(car_s + 90, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y, map_waypoints_dx, map_waypoints_dy);
+        vector<double> next_wp0 = getXY(car_s + 30, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y);
+        vector<double> next_wp1 = getXY(car_s + 60, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y);
+        vector<double> next_wp2 = getXY(car_s + 90, (lane_center + (lane_width * lane)), map_waypoints_s, map_waypoints_x, map_waypoints_y);
 
         // Add the synthetic waypoints to the car path.
         ptsx.push_back(next_wp0[0]);
@@ -423,8 +423,6 @@ int main() {
         double target_x = 30.0;
         double target_y = spline_function(target_x);
 
-
-
         // The distance of the target point from the car.
         double target_distance = sqrt(target_x * target_x + target_y * target_y);
 
@@ -456,7 +454,7 @@ int main() {
           next_y_vals.push_back(y_point);
         }
 
-          // TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
+          // A path made up of (x,y) points that the car will visit sequentially every .02 seconds
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
 
