@@ -35,5 +35,5 @@ To generate the right path points we do the following:
 ### Demo
 #### Click to see full video of sample run
 
-[![Autonomous Vehicle Path Planning](./output/autonomous_path_planning.gif)](http://www.youtube.com/watch?v=T-D1KVIuvjA)
+[![Autonomous Vehicle Path Planning](./output/autonomous_path_planning.gif)](https://youtu.be/inI3Xbl8N9A)
 
