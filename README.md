@@ -33,4 +33,7 @@ To generate the right path points we do the following:
 8. We pass all the previously unprocessed and newly create path points to the simulator for it to process.
 
 ### Demo
+#### Click to see full video of sample run
+
+[![Autonomous Vehicle Path Planning](./output/autonomous_path_planning.gif)](http://www.youtube.com/watch?v=T-D1KVIuvjA)
 
