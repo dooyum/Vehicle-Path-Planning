@@ -179,7 +179,7 @@ int main() {
   vector<double> map_waypoints_dy;
 
   // Waypoint map to read from
-  string map_file_ = "../../../data/highway_map.csv";
+  string map_file_ = "../data/highway_map.csv";
   // The max s value before wrapping around the track back to 0
   double max_s = 6945.554;
   // Our speed limit is 49mph(21.88m/s) just under the 50mph legal limit.
