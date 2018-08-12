@@ -15,12 +15,30 @@ Our main object was to therefore provide the right path points depending on our 
 ### Modeling the Path
 To generate the right path points we do the following:
 
-#### State Machine
+#### Finite State Machine
+We created a finite state machine to to transition to various states that will let us achieve our primary objectives of moving at the fastest legal speed, while avoiding collisions with other cars.
+Our Finite State Machine was made up of the following states:
+a. Speed up
+b. Slow down
+c. Stay in present lane
+d. Switch to left lane
+e. Switch to right lane
+
+##### Transitioning between states
 1. Check our proximity to all cars around us.
 2. Maintain an "is lane obstructed" state for our lane and each lane to the left and right of our car.
-3. If our lane is obstructed slow down.
-4. If our lane is obstructed but other lanes are free, swithc lanes.
-5. If there's no obstruction, speed up and cap at the speed limit.
+3. If there's no obstruction, speed up and cap at the speed limit.
+4. If our lane is obstructed slow down.
+5. If our lane is obstructed but left lane is free, switch to left lane.
+6. If our lane and left lane are obstructed but right lane is free, switch to right lane.
+
+#### Cost by Proximity
+We calculated the cost of transitioning to a new state by using the inverse of our proximity to the cars around if a state change is successful. If the cost was greater than our threshold 0.033 (inverse of 30 meters), then we abandon that state change and evaluate cheaper alternatives.
+
+#### Limits and Comfort Optimization
+Because, our stated goal was to move at the highest legal speed (50mph) while avoiding traffic, we could theoretically achieve this by accelerating at ridiculous speeds to reach the limit whenever we got the chance. One thing we had to consider however was the comfort of the passengers of the car. We therefore had to minimize jerk when speeding up, slowing down or switching lanes. 
+Minimizing jerk while switching lanes was achieved by appending the unvisited paths of previous path plans to newly created path plans. This way a lane switch still has some points in the previous lane that gracefully transition to the new lane. A Spline function ensures that the new path is a curve that adequately combines all the points of interest in the new path. 
+Minimizing jerk while accelerating or decelerating was achieved by speeding up or slowing down by 0.5mph per cycle. This was small enough to decelerate before a colision and accelerate to the maximum speed while avoiding jerk.
 
 #### Generate New Path
 1. Add the last two unprocessed points from the previous path to a temporary new path. Also get the heading direction of our car.
